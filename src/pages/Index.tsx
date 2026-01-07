@@ -1,12 +1,36 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { BookingModal } from "@/components/BookingModal";
+import { HeroSection } from "@/components/home/HeroSection";
+import { TrustSection } from "@/components/home/TrustSection";
+import { ServicesSection } from "@/components/home/ServicesSection";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+import { FAQSection } from "@/components/home/FAQSection";
+import { CTASection } from "@/components/home/CTASection";
 
 const Index = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen">
+      <Header onBookingClick={() => setIsBookingOpen(true)} />
+      
+      <main>
+        <HeroSection onBookingClick={() => setIsBookingOpen(true)} />
+        <TrustSection />
+        <ServicesSection onBookingClick={() => setIsBookingOpen(true)} />
+        <TestimonialsSection />
+        <FAQSection />
+        <CTASection onBookingClick={() => setIsBookingOpen(true)} />
+      </main>
+
+      <Footer />
+      
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+      />
     </div>
   );
 };
