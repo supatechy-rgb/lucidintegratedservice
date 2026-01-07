@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowRight, Shield, Clock, Leaf } from "lucide-react";
+import heroBackground from "@/assets/hero-background.jpg";
 
 interface HeroSectionProps {
   onBookingClick: () => void;
@@ -61,9 +62,19 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-hero-gradient" />
-      <div className="absolute inset-0 opacity-10">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={heroBackground}
+          alt="Professional cleaning team at work"
+          className="w-full h-full object-cover"
+        />
+        {/* Dark overlay with gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70" />
+      </div>
+      
+      {/* Decorative elements */}
+      <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 right-20 w-96 h-96 rounded-full bg-secondary blur-3xl" />
         <div className="absolute bottom-20 left-20 w-64 h-64 rounded-full bg-primary-foreground blur-3xl" />
       </div>
