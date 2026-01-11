@@ -53,7 +53,7 @@ export function Footer() {
           {/* Brand Column */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <img src={logoWhite} alt="Lucid Integrated Services" className="h-12 w-auto" />
+              <img src={logoWhite} alt="Lucid Integrated Services" className="h-16 w-auto" />
               <div className="flex flex-col">
                 <span className="font-extrabold text-xl leading-tight">LUCID</span>
                 <span className="text-xs font-bold leading-tight text-primary-foreground/70">
