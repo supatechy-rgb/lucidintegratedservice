@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -41,18 +42,12 @@ export function Header({ onBookingClick }: HeaderProps) {
       }`}
     >
       <div className="container flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-lg bg-hero-gradient flex items-center justify-center">
-            <span className="text-primary-foreground font-extrabold text-lg">L</span>
-          </div>
-          <div className="flex flex-col">
-            <span className={`font-extrabold text-lg leading-tight transition-colors ${isScrolled ? "text-primary" : "text-primary"}`}>
-              LUCID
-            </span>
-            <span className={`text-xs font-medium leading-tight transition-colors ${isScrolled ? "text-muted-foreground" : "text-muted-foreground"}`}>
-              Integrated Services
-            </span>
-          </div>
+        <Link to="/" className="flex items-center">
+          <img 
+            src={logo} 
+            alt="Lucid Integrated Services" 
+            className="h-12 w-auto"
+          />
         </Link>
 
         {/* Desktop Navigation */}
