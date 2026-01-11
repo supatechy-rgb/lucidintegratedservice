@@ -10,8 +10,8 @@
     --primary: 230 100% 29%;
     --primary-foreground: 0 0% 100%;
     
-    /* Secondary - Sustainable Gold #906b20 */
-    --secondary: 40 64% 34%;
+    /* Secondary - Vibrant Green #8ac926 */
+    --secondary: 83 68% 47%;
     --secondary-foreground: 0 0% 100%;
     
     /* Backgrounds */
@@ -29,9 +29,9 @@
     --muted: 210 30% 95%;
     --muted-foreground: 230 20% 40%;
     
-    /* Accent - lighter gold */
-    --accent: 40 50% 95%;
-    --accent-foreground: 40 64% 25%;
+    /* Accent - lighter green */
+    --accent: 83 50% 95%;
+    --accent-foreground: 83 68% 25%;
     
     /* UI Elements */
     --destructive: 0 84% 60%;
@@ -45,7 +45,7 @@
     
     /* Custom tokens */
     --gradient-hero: linear-gradient(135deg, hsl(230 100% 29%) 0%, hsl(230 80% 20%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(40 64% 34%) 0%, hsl(40 70% 45%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(83 68% 47%) 0%, hsl(83 70% 55%) 100%);
     --gradient-surface: linear-gradient(180deg, hsl(210 40% 98%) 0%, hsl(210 30% 95%) 100%);
     
     --shadow-card: 0 4px 20px -4px hsl(230 50% 10% / 0.08);
@@ -76,14 +76,14 @@
     --primary: 230 100% 60%;
     --primary-foreground: 230 50% 8%;
     
-    --secondary: 40 64% 50%;
+    --secondary: 83 68% 55%;
     --secondary-foreground: 230 50% 8%;
     
     --muted: 230 30% 18%;
     --muted-foreground: 210 20% 70%;
     
-    --accent: 40 40% 20%;
-    --accent-foreground: 40 64% 70%;
+    --accent: 83 40% 20%;
+    --accent-foreground: 83 68% 70%;
     
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
