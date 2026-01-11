@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import logoWhite from "@/assets/logo-white.png";
 
 const quickLinks = [
   { name: "Home", path: "/" },
@@ -51,13 +52,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand Column */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                <span className="text-secondary-foreground font-extrabold text-lg">L</span>
-              </div>
+            <div className="flex items-center gap-3">
+              <img src={logoWhite} alt="Lucid Integrated Services" className="h-12 w-auto" />
               <div className="flex flex-col">
-                <span className="font-extrabold text-lg leading-tight">LUCID</span>
-                <span className="text-xs font-medium leading-tight text-primary-foreground/70">
+                <span className="font-extrabold text-xl leading-tight">LUCID</span>
+                <span className="text-xs font-bold leading-tight text-primary-foreground/70">
                   Integrated Services
                 </span>
               </div>
