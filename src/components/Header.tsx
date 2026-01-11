@@ -46,7 +46,7 @@ export function Header({ onBookingClick }: HeaderProps) {
           <img 
             src={logo} 
             alt="Lucid Integrated Services" 
-            className="h-12 w-auto"
+            className="h-16 w-auto"
           />
         </Link>
 
