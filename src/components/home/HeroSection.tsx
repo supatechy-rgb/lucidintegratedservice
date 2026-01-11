@@ -71,6 +71,8 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
         />
         {/* Dark overlay with gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70" />
+        {/* White fade at top for logo visibility */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/70 to-transparent" />
       </div>
       
       {/* Decorative elements */}
