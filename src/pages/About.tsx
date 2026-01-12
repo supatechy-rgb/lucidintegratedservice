@@ -4,6 +4,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BookingModal } from "@/components/BookingModal";
 import { Award, Leaf, Shield, Users, Heart, Target, Eye, Lightbulb } from "lucide-react";
+import heroBackground from "@/assets/hero-background.jpg";
+
 const values = [{
   icon: Award,
   title: "Quality",
@@ -29,14 +31,25 @@ const values = [{
   title: "Attention to Detail",
   description: "We notice the little things that make a big difference."
 }];
+
 const About = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   return <div className="min-h-screen">
       <Header onBookingClick={() => setIsBookingOpen(true)} />
 
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-hero-gradient">
-        <div className="container">
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${heroBackground})` }}
+        />
+        {/* Blue Tint Overlay */}
+        <div className="absolute inset-0 bg-primary/85" />
+        {/* White Gradient at Top */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/40 to-transparent" />
+        
+        <div className="container relative z-10">
           <motion.div initial={{
           opacity: 0,
           y: 20
