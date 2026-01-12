@@ -3,46 +3,51 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BookingModal } from "@/components/BookingModal";
-import { 
-  Award, 
-  Leaf, 
-  Shield, 
-  Users, 
-  Heart, 
-  Target,
-  Eye,
-  Lightbulb
-} from "lucide-react";
-
-const values = [
-  { icon: Award, title: "Quality", description: "We deliver excellence in every service, ensuring spotless results every time." },
-  { icon: Leaf, title: "Sustainability", description: "Eco-friendly products and practices that protect our planet." },
-  { icon: Shield, title: "Reliability", description: "Consistent, dependable service you can count on." },
-  { icon: Users, title: "Professionalism", description: "Trained, uniformed staff who respect your space and time." },
-  { icon: Heart, title: "Customer Satisfaction", description: "Your happiness is our top priority and measure of success." },
-  { icon: Eye, title: "Attention to Detail", description: "We notice the little things that make a big difference." },
-];
-
+import { Award, Leaf, Shield, Users, Heart, Target, Eye, Lightbulb } from "lucide-react";
+const values = [{
+  icon: Award,
+  title: "Quality",
+  description: "We deliver excellence in every service, ensuring spotless results every time."
+}, {
+  icon: Leaf,
+  title: "Sustainability",
+  description: "Eco-friendly products and practices that protect our planet."
+}, {
+  icon: Shield,
+  title: "Reliability",
+  description: "Consistent, dependable service you can count on."
+}, {
+  icon: Users,
+  title: "Professionalism",
+  description: "Trained, uniformed staff who respect your space and time."
+}, {
+  icon: Heart,
+  title: "Customer Satisfaction",
+  description: "Your happiness is our top priority and measure of success."
+}, {
+  icon: Eye,
+  title: "Attention to Detail",
+  description: "We notice the little things that make a big difference."
+}];
 const About = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       <Header onBookingClick={() => setIsBookingOpen(true)} />
 
       {/* Hero */}
       <section className="pt-32 pb-20 bg-hero-gradient">
         <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-3xl mx-auto text-center text-primary-foreground"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} className="max-w-3xl mx-auto text-center text-primary-foreground">
             <span className="inline-block px-4 py-2 rounded-full bg-secondary/20 text-secondary font-medium text-sm mb-6">
               About Us
             </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold mb-6">
-              Creating <span className="text-secondary">Spotless</span> Spaces Since 2014
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Creating Spotless Spaces<span className="text-secondary">Spotless</span> Spaces Since 2014
             </h1>
             <p className="text-lg text-primary-foreground/80">
               Founded with a vision to deliver stress-free, eco-conscious cleaning and maintenance services 
@@ -56,11 +61,15 @@ const About = () => {
       <section className="py-20 bg-card">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: -20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} viewport={{
+            once: true
+          }}>
               <span className="inline-block px-4 py-2 rounded-full bg-secondary/10 text-secondary font-medium text-sm mb-4">
                 Our Story
               </span>
@@ -85,12 +94,15 @@ const About = () => {
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: 20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} viewport={{
+            once: true
+          }} className="relative">
               <div className="aspect-square rounded-2xl bg-muted flex items-center justify-center">
                 <div className="text-center p-8">
                   <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
@@ -111,12 +123,15 @@ const About = () => {
       <section className="py-20 bg-surface-gradient">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-card rounded-2xl p-8 shadow-card"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} viewport={{
+            once: true
+          }} className="bg-card rounded-2xl p-8 shadow-card">
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                 <Target className="w-7 h-7 text-primary" />
               </div>
@@ -128,13 +143,17 @@ const About = () => {
               </p>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-card rounded-2xl p-8 shadow-card"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} viewport={{
+            once: true
+          }} transition={{
+            delay: 0.1
+          }} className="bg-card rounded-2xl p-8 shadow-card">
               <div className="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-6">
                 <Eye className="w-7 h-7 text-secondary" />
               </div>
@@ -152,12 +171,15 @@ const About = () => {
       {/* Core Values */}
       <section className="py-20 bg-card">
         <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-12"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} viewport={{
+          once: true
+        }} className="text-center max-w-2xl mx-auto mb-12">
             <span className="inline-block px-4 py-2 rounded-full bg-secondary/10 text-secondary font-medium text-sm mb-4">
               Core Values
             </span>
@@ -167,34 +189,30 @@ const About = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-muted rounded-xl p-6 hover:shadow-card transition-shadow"
-              >
+            {values.map((value, index) => <motion.div key={value.title} initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} viewport={{
+            once: true
+          }} transition={{
+            delay: index * 0.1
+          }} className="bg-muted rounded-xl p-6 hover:shadow-card transition-shadow">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <value.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-bold text-foreground mb-2">{value.title}</h3>
                 <p className="text-muted-foreground text-sm">{value.description}</p>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </div>
         </div>
       </section>
 
       <Footer />
 
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-      />
-    </div>
-  );
+      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
+    </div>;
 };
-
 export default About;
