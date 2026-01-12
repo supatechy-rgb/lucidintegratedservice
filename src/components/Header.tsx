@@ -44,10 +44,15 @@ export function Header({
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map(link => <Link key={link.path} to={link.path} className="">
+          {navLinks.map(link => (
+            <Link 
+              key={link.path} 
+              to={link.path} 
+              className={`font-medium transition-colors ${location.pathname === link.path ? "text-primary" : "text-foreground/80 hover:text-primary"}`}
+            >
               {link.name}
-              {location.pathname === link.path && <motion.div layoutId="activeNav" className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-primary" />}
-            </Link>)}
+            </Link>
+          ))}
         </nav>
 
         {/* Desktop CTA */}
