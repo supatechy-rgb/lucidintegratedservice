@@ -103,17 +103,7 @@ const About = () => {
           }} viewport={{
             once: true
           }} className="relative">
-              <div className="aspect-square rounded-2xl bg-muted flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Lightbulb className="w-12 h-12 text-primary" />
-                  </div>
-                  <p className="text-lg font-semibold text-foreground">Founder's Vision</p>
-                  <p className="text-muted-foreground text-sm mt-2">
-                    "Excellence is not a destination but a continuous journey of improvement."
-                  </p>
-                </div>
-              </div>
+              
             </motion.div>
           </div>
         </div>
