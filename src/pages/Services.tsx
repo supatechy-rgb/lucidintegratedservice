@@ -18,6 +18,7 @@ import {
   Layout,
   Palette,
 } from "lucide-react";
+import heroBackground from "@/assets/hero-background.jpg";
 
 const serviceCategories = [
   {
@@ -134,8 +135,18 @@ const Services = () => {
       <Header onBookingClick={() => setIsBookingOpen(true)} />
 
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-hero-gradient">
-        <div className="container">
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${heroBackground})` }}
+        />
+        {/* Blue Tint Overlay */}
+        <div className="absolute inset-0 bg-primary/85" />
+        {/* White Gradient at Top */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/40 to-transparent" />
+        
+        <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
