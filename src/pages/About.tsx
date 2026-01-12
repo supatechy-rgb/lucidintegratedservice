@@ -5,7 +5,6 @@ import { Footer } from "@/components/Footer";
 import { BookingModal } from "@/components/BookingModal";
 import { Award, Leaf, Shield, Users, Heart, Target, Eye, Lightbulb } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
-
 const values = [{
   icon: Award,
   title: "Quality",
@@ -31,7 +30,6 @@ const values = [{
   title: "Attention to Detail",
   description: "We notice the little things that make a big difference."
 }];
-
 const About = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   return <div className="min-h-screen">
@@ -40,10 +38,9 @@ const About = () => {
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${heroBackground})` }}
-        />
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{
+        backgroundImage: `url(${heroBackground})`
+      }} />
         {/* Blue Tint Overlay */}
         <div className="absolute inset-0 bg-primary/85" />
         {/* White Gradient at Top */}
@@ -60,7 +57,7 @@ const About = () => {
             <span className="inline-block px-4 py-2 rounded-full bg-secondary/20 text-secondary font-medium text-sm mb-6">
               About Us
             </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Creating Spotless Spaces<span className="text-secondary">Spotless</span> Spaces Since 2014
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Creating Spotless Spaces <span className="text-secondary">Spotless</span> Spaces Since 2014
             </h1>
             <p className="text-lg text-primary-foreground/80">
               Founded with a vision to deliver stress-free, eco-conscious cleaning and maintenance services 
