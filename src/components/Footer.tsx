@@ -65,15 +65,14 @@ export function Footer() {
               Delivering spotless, stress-free environments with eco-friendly practices and meticulous attention to detail.
             </p>
             <div className="flex gap-3">
-              {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
-                >
-                  <Icon className="w-5 h-5" />
-                </a>
-              ))}
+              <a
+                href="https://www.instagram.com/lucidintegratedservices/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
@@ -142,17 +141,17 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-primary-foreground/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex flex-wrap justify-center gap-6 text-sm text-primary-foreground/70">
-              <a href="tel:+1234567890" className="flex items-center gap-2 hover:text-secondary transition-colors">
+              <a href="tel:+2349160198122" className="flex items-center gap-2 hover:text-secondary transition-colors">
                 <Phone className="w-4 h-4" />
-                +1 (234) 567-890
+                +234-916-019-8122
               </a>
-              <a href="mailto:info@lucidservices.com" className="flex items-center gap-2 hover:text-secondary transition-colors">
+              <a href="mailto:lucidintegratedservices@gmail.com" className="flex items-center gap-2 hover:text-secondary transition-colors">
                 <Mail className="w-4 h-4" />
-                info@lucidservices.com
+                lucidintegratedservices@gmail.com
               </a>
               <span className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
-                123 Business Ave, City
+                Surulere, Lagos, Nigeria
               </span>
             </div>
             <p className="text-sm text-primary-foreground/50">
