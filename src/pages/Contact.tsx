@@ -28,20 +28,20 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    value: "+1 (234) 567-890",
-    link: "tel:+1234567890",
+    value: "+234-916-019-8122",
+    link: "tel:+2349160198122",
   },
   {
     icon: Mail,
     title: "Email",
-    value: "info@lucidservices.com",
-    link: "mailto:info@lucidservices.com",
+    value: "lucidintegratedservices@gmail.com",
+    link: "mailto:lucidintegratedservices@gmail.com",
   },
   {
     icon: MapPin,
     title: "Location",
-    value: "123 Business Avenue, City",
-    link: "#",
+    value: "Surulere, Lagos, Nigeria",
+    link: "https://maps.google.com/?q=Surulere,Lagos,Nigeria",
   },
   {
     icon: Clock,
