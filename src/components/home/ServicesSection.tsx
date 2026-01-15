@@ -5,6 +5,11 @@ import { Sparkles, Droplets, Wrench, Paintbrush } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
+import serviceConstruction from "@/assets/service-construction.jpg";
+import serviceFumigation from "@/assets/service-fumigation.jpg";
+import serviceMaintenance from "@/assets/service-maintenance.jpg";
+import serviceInterior from "@/assets/service-interior.jpg";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const services = [
@@ -14,6 +19,7 @@ const services = [
     description:
       "Complete cleaning solutions for newly built or renovated spaces. We handle debris, dust, and finishing touches.",
     features: ["Deep Cleaning", "Debris Removal", "Final Polish"],
+    image: serviceConstruction,
   },
   {
     icon: Droplets,
@@ -21,6 +27,7 @@ const services = [
     description:
       "Professional pest control and fumigation services to keep your property safe and pest-free.",
     features: ["Complete Solutions", "Safe Products", "Long-lasting Results"],
+    image: serviceFumigation,
   },
   {
     icon: Wrench,
@@ -28,6 +35,7 @@ const services = [
     description:
       "General maintenance, HVAC, electrical, plumbing, and landscaping services under one roof.",
     features: ["HVAC Services", "Electrical & Plumbing", "Gardening"],
+    image: serviceMaintenance,
   },
   {
     icon: Paintbrush,
@@ -35,6 +43,7 @@ const services = [
     description:
       "Transform your space with our interior design, space planning, and furniture selection services.",
     features: ["Space Planning", "Color Consultation", "Furniture Selection"],
+    image: serviceInterior,
   },
 ];
 
@@ -169,37 +178,50 @@ export function ServicesSection({ onBookingClick }: ServicesSectionProps) {
             <div
               key={service.title}
               ref={(el) => (cardsRef.current[index] = el)}
-              className="group bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-2"
+              className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-2"
               style={{ perspective: "1000px" }}
             >
-              <div className="service-icon w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary transition-colors duration-300">
-                <service.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+              {/* Image Section */}
+              <div className="relative h-40 overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                <div className="service-icon absolute bottom-3 left-4 w-12 h-12 rounded-xl bg-primary/90 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                  <service.icon className="w-6 h-6 text-primary-foreground" />
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
-                {service.description}
-              </p>
-              <ul className="space-y-2 mb-6">
-                {service.features.map((feature) => (
-                  <li
-                    key={feature}
-                    className="service-feature flex items-center gap-2 text-sm text-foreground/80"
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-secondary" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full"
-                onClick={onBookingClick}
-              >
-                Book Now
-              </Button>
+              
+              {/* Content Section */}
+              <div className="p-5">
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                  {service.description}
+                </p>
+                <ul className="space-y-2 mb-5">
+                  {service.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="service-feature flex items-center gap-2 text-sm text-foreground/80"
+                    >
+                      <div className="w-1.5 h-1.5 rounded-full bg-secondary" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full"
+                  onClick={onBookingClick}
+                >
+                  Book Now
+                </Button>
+              </div>
             </div>
           ))}
         </div>
