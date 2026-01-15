@@ -53,16 +53,20 @@ export function ServicesSection({ onBookingClick }: ServicesSectionProps) {
 
     const ctx = gsap.context(() => {
       // Header animation
-      gsap.from(".services-header", {
-        y: 60,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 80%",
-        },
-      });
+      gsap.fromTo(
+        ".services-header",
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+          },
+        }
+      );
 
       // Cards staggered animation
       cards.forEach((card, index) => {
@@ -73,23 +77,28 @@ export function ServicesSection({ onBookingClick }: ServicesSectionProps) {
           },
         });
 
-        tl.from(card, {
-          y: 100,
-          opacity: 0,
-          rotateX: 15,
-          duration: 0.8,
-          delay: index * 0.1,
-          ease: "power3.out",
-        });
+        tl.fromTo(
+          card,
+          { y: 100, opacity: 0, rotateX: 15 },
+          {
+            y: 0,
+            opacity: 1,
+            rotateX: 0,
+            duration: 0.8,
+            delay: index * 0.1,
+            ease: "power3.out",
+          }
+        );
 
         // Icon pop animation
         const icon = card?.querySelector(".service-icon");
         if (icon) {
-          tl.from(
+          tl.fromTo(
             icon,
+            { scale: 0, rotation: -90 },
             {
-              scale: 0,
-              rotation: -90,
+              scale: 1,
+              rotation: 0,
               duration: 0.6,
               ease: "back.out(2)",
             },
@@ -100,11 +109,12 @@ export function ServicesSection({ onBookingClick }: ServicesSectionProps) {
         // Features slide in
         const features = card?.querySelectorAll(".service-feature");
         if (features?.length) {
-          tl.from(
+          tl.fromTo(
             features,
+            { x: -20, opacity: 0 },
             {
-              x: -20,
-              opacity: 0,
+              x: 0,
+              opacity: 1,
               duration: 0.4,
               stagger: 0.1,
               ease: "power2.out",
@@ -115,16 +125,20 @@ export function ServicesSection({ onBookingClick }: ServicesSectionProps) {
       });
 
       // Bottom CTA
-      gsap.from(".services-cta", {
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".services-cta",
-          start: "top 90%",
-        },
-      });
+      gsap.fromTo(
+        ".services-cta",
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".services-cta",
+            start: "top 90%",
+          },
+        }
+      );
     }, section);
 
     return () => ctx.revert();
