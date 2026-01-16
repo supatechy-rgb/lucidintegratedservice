@@ -19,6 +19,18 @@ import {
   Palette,
 } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
+import serviceConstruction from "@/assets/service-construction.jpg";
+import serviceFumigation from "@/assets/service-fumigation.jpg";
+import serviceMaintenance from "@/assets/service-maintenance.jpg";
+import serviceInterior from "@/assets/service-interior.jpg";
+
+// Map category images
+const categoryImages: Record<string, string> = {
+  "Post-Construction": serviceConstruction,
+  "Fumigation": serviceFumigation,
+  "Maintenance": serviceMaintenance,
+  "Interiors & Branding": serviceInterior,
+};
 
 const serviceCategories = [
   {
@@ -199,25 +211,38 @@ const Services = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: serviceIndex * 0.05 }}
-                    className="bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 group"
+                    className="bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 group"
                   >
-                    <div className="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4 group-hover:bg-secondary transition-colors">
-                      <service.icon className="w-6 h-6 text-secondary group-hover:text-secondary-foreground transition-colors" />
+                    {/* Image Section */}
+                    <div className="relative h-40 overflow-hidden">
+                      <img
+                        src={categoryImages[category.title]}
+                        alt={service.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                      <div className="absolute bottom-3 left-4 w-12 h-12 rounded-xl bg-primary/90 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                        <service.icon className="w-6 h-6 text-primary-foreground" />
+                      </div>
                     </div>
-                    <h3 className="text-lg font-bold text-foreground mb-3">
-                      {service.name}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                      {service.description}
-                    </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full"
-                      onClick={() => handleBookService(service.name)}
-                    >
-                      Book This Service
-                    </Button>
+                    
+                    {/* Content Section */}
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-foreground mb-3">
+                        {service.name}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                        {service.description}
+                      </p>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full"
+                        onClick={() => handleBookService(service.name)}
+                      >
+                        Book This Service
+                      </Button>
+                    </div>
                   </motion.div>
                 ))}
               </div>
