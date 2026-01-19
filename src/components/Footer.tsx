@@ -93,6 +93,22 @@ export function Footer() {
               >
                 <Instagram className="w-5 h-5" />
               </a>
+              <a
+                href="https://x.com/IntegratedLucid?t=TD15MZF6DsAM8SUNo7SYVg&s=09"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.facebook.com/share/1Enp31H16r/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
