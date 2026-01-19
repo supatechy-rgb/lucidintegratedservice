@@ -80,29 +80,49 @@ export function BookingModal({ isOpen, onClose, preselectedService }: BookingMod
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    
+    try {
+      const response = await fetch("https://formspree.io/f/maqqekka", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Booking Request Submitted!",
+          description: "We'll contact you within 24 hours to confirm your appointment.",
+        });
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          serviceType: "",
+          propertyType: "",
+          preferredDate: "",
+          preferredTime: "",
+          notes: "",
+        });
+        onClose();
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch (error) {
       toast({
-        title: "Booking Request Submitted!",
-        description: "We'll contact you within 24 hours to confirm your appointment.",
+        title: "Submission failed",
+        description: "Please try again later.",
+        variant: "destructive",
       });
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        serviceType: "",
-        propertyType: "",
-        preferredDate: "",
-        preferredTime: "",
-        notes: "",
-      });
+    } finally {
       setIsSubmitting(false);
-      onClose();
-    }, 1500);
+    }
   };
 
   const handleChange = (field: string, value: string) => {

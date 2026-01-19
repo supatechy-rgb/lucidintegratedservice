@@ -107,7 +107,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
     return () => ctx.revert();
   }, []);
 
-  const handleQuickBooking = (e: React.FormEvent) => {
+  const handleQuickBooking = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
@@ -124,14 +124,40 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      toast({
-        title: "Request Received!",
-        description: "We'll contact you shortly to confirm your booking.",
+    
+    try {
+      const response = await fetch("https://formspree.io/f/maqqekka", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          serviceType: formData.service,
+          preferredDate: formData.date,
+        }),
       });
-      setFormData({ name: "", email: "", phone: "", service: "", date: "" });
+
+      if (response.ok) {
+        toast({
+          title: "Request Received!",
+          description: "We'll contact you shortly to confirm your booking.",
+        });
+        setFormData({ name: "", email: "", phone: "", service: "", date: "" });
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch (error) {
+      toast({
+        title: "Submission failed",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
