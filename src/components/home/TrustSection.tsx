@@ -6,8 +6,8 @@ import { Users, Award, Clock, ThumbsUp } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { icon: Users, value: 500, suffix: "+", label: "Happy Clients" },
-  { icon: Award, value: 10, suffix: "+", label: "Years Experience" },
+  { icon: Users, value: 50, suffix: "+", label: "Happy Clients" },
+  { icon: Award, value: 2, suffix: "+", label: "Years Experience" },
   { icon: Clock, value: 24, suffix: "/7", label: "Support Available" },
   { icon: ThumbsUp, value: 99, suffix: "%", label: "Satisfaction Rate" },
 ];

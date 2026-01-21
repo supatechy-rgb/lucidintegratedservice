@@ -35,10 +35,10 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
   const decorRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
+    firstName: "",
+    lastName: "",
+    location: "",
+    address: "",
     date: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -111,10 +111,10 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
     e.preventDefault();
 
     if (
-      !formData.name ||
-      !formData.email ||
-      !formData.phone ||
-      !formData.service
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.location ||
+      !formData.address
     ) {
       toast({
         title: "Please fill in all required fields",
@@ -132,10 +132,10 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          fullName: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          serviceType: formData.service,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          location: formData.location,
+          address: formData.address,
           preferredDate: formData.date,
         }),
       });
@@ -143,9 +143,9 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
       if (response.ok) {
         toast({
           title: "Request Received!",
-          description: "We'll contact you shortly to confirm your booking.",
+          description: "We'll contact you shortly with your free quotation.",
         });
-        setFormData({ name: "", email: "", phone: "", service: "", date: "" });
+        setFormData({ firstName: "", lastName: "", location: "", address: "", date: "" });
       } else {
         throw new Error("Submission failed");
       }
@@ -190,24 +190,24 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
           {/* Left Content */}
           <div ref={heroContentRef} className="text-primary-foreground">
             <span className="hero-animate inline-block px-4 py-2 rounded-full bg-secondary/20 text-secondary font-medium text-sm mb-6">
-              🌿 Eco-Friendly Cleaning Solutions
+              🌿 Eco-Friendly Practices and Solutions
             </span>
             <h1 className="hero-animate text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
               Spotless Spaces,{" "}
-              <span className="text-secondary">Stress-Free</span> Living
+              <span className="text-secondary">Healthy</span> Living
             </h1>
             <p className="hero-animate text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-xl">
-              Professional cleaning and maintenance services that exceed
-              expectations. We deliver excellence with eco-conscious practices
-              and meticulous attention to detail.
+              Professional cleaning and maintenance services for residential and 
+              commercial properties. Delivering excellent eco-conscious practices 
+              coupled with detailed finishing.
             </p>
 
             {/* Trust Badges */}
             <div className="hero-animate flex flex-wrap gap-6 mb-10">
               {[
-                { icon: Shield, text: "Trusted by 500+" },
-                { icon: Clock, text: "24/7 Support" },
-                { icon: Leaf, text: "Eco-Friendly" },
+                { icon: Shield, text: "Trusted by 100+" },
+                { icon: Clock, text: "2+ Years Experience" },
+                { icon: Leaf, text: "Eco-Friendly Practices" },
               ].map(({ icon: Icon, text }) => (
                 <div
                   key={text}
@@ -221,7 +221,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
 
             <div className="hero-animate flex flex-wrap gap-4">
               <Button variant="hero" size="lg" onClick={onBookingClick}>
-                Book a Service
+                Book a Service Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button variant="heroOutline" size="lg" asChild>
@@ -237,71 +237,61 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
                 Quick Booking
               </h3>
               <p className="text-muted-foreground mb-6">
-                Get a free quote in minutes
+                Get a free quotation
               </p>
 
               <form onSubmit={handleQuickBooking} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="hero-firstname">First Name *</Label>
+                    <Input
+                      id="hero-firstname"
+                      value={formData.firstName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, firstName: e.target.value })
+                      }
+                      placeholder="John"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="hero-lastname">Last Name *</Label>
+                    <Input
+                      id="hero-lastname"
+                      value={formData.lastName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, lastName: e.target.value })
+                      }
+                      placeholder="Doe"
+                    />
+                  </div>
+                </div>
+
                 <div className="space-y-2">
-                  <Label htmlFor="hero-name">Full Name *</Label>
+                  <Label htmlFor="hero-location">Location *</Label>
                   <Input
-                    id="hero-name"
-                    value={formData.name}
+                    id="hero-location"
+                    value={formData.location}
                     onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
+                      setFormData({ ...formData, location: e.target.value })
                     }
-                    placeholder="John Doe"
+                    placeholder="City, State"
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="hero-email">Email *</Label>
-                    <Input
-                      id="hero-email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      placeholder="john@email.com"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="hero-phone">Phone *</Label>
-                    <Input
-                      id="hero-phone"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })
-                      }
-                      placeholder="+1 234 567 890"
-                    />
-                  </div>
-                </div>
-
                 <div className="space-y-2">
-                  <Label>Service Type *</Label>
-                  <Select
-                    value={formData.service}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, service: value })
+                  <Label htmlFor="hero-address">Address *</Label>
+                  <Input
+                    id="hero-address"
+                    value={formData.address}
+                    onChange={(e) =>
+                      setFormData({ ...formData, address: e.target.value })
                     }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a service" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {services.map((service) => (
-                        <SelectItem key={service} value={service}>
-                          {service}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    placeholder="Your full address"
+                  />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="hero-date">Preferred Date</Label>
+                  <Label htmlFor="hero-date">Preferred Start Date</Label>
                   <Input
                     id="hero-date"
                     type="date"
@@ -319,7 +309,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
                   size="lg"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Get Free Quote"}
+                  {isSubmitting ? "Submitting..." : "Get a Free Quotation"}
                 </Button>
               </form>
             </div>
