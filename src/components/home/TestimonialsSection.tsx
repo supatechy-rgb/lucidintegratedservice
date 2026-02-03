@@ -2,11 +2,21 @@ import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const testimonials = [
+interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  content: string;
+  rating: number;
+}
+
+const defaultTestimonials: Testimonial[] = [
   {
+    id: "default-1",
     name: "Sarah Johnson",
     role: "Homeowner",
     content:
@@ -14,6 +24,7 @@ const testimonials = [
     rating: 5,
   },
   {
+    id: "default-2",
     name: "Michael Chen",
     role: "Property Manager",
     content:
@@ -21,6 +32,7 @@ const testimonials = [
     rating: 5,
   },
   {
+    id: "default-3",
     name: "Emily Rodriguez",
     role: "Business Owner",
     content:
@@ -28,6 +40,7 @@ const testimonials = [
     rating: 5,
   },
   {
+    id: "default-4",
     name: "David Okonkwo",
     role: "Restaurant Owner",
     content:
@@ -39,8 +52,25 @@ const testimonials = [
 export function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(defaultTestimonials);
   const sectionRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Fetch approved testimonials from database
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      const { data, error } = await supabase
+        .from("testimonials")
+        .select("id, name, role, content, rating")
+        .order("created_at", { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        setTestimonials(data as Testimonial[]);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
