@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BookingModal } from "@/components/BookingModal";
+import { TestimonialModal } from "@/components/TestimonialModal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,7 +21,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, MessageSquareHeart } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import heroBackground from "@/assets/hero-background.jpg";
 
@@ -81,6 +82,7 @@ const faqs = [
 
 const Contact = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isTestimonialOpen, setIsTestimonialOpen] = useState(false);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -364,11 +366,45 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* Testimonial CTA Section */}
+      <section className="py-16 bg-primary">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-2xl mx-auto"
+          >
+            <MessageSquareHeart className="w-12 h-12 text-secondary mx-auto mb-4" />
+            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
+              Share Your Experience
+            </h2>
+            <p className="text-primary-foreground/80 mb-6">
+              Had a great experience with our services? We'd love to hear from you! 
+              Your feedback helps us improve and helps others discover Lucid.
+            </p>
+            <Button
+              variant="gold"
+              size="lg"
+              onClick={() => setIsTestimonialOpen(true)}
+            >
+              <MessageSquareHeart className="w-5 h-5 mr-2" />
+              Leave a Testimonial
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
       <Footer />
 
       <BookingModal
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
+      />
+
+      <TestimonialModal
+        isOpen={isTestimonialOpen}
+        onClose={() => setIsTestimonialOpen(false)}
       />
     </div>
   );
