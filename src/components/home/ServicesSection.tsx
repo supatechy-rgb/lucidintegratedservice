@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Sparkles, Bug, Wrench, Paintbrush, Truck, Package } from "lucide-react";
+import { Sparkles, WashingMachine, Bug, Wrench, Paintbrush, Truck, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -20,6 +20,15 @@ const services = [
       "Complete cleaning solutions including post-construction, deep cleaning, and upholstery care.",
     features: ["Post-Construction", "Deep Cleaning", "Upholstery"],
     image: serviceConstruction,
+  },
+  {
+    icon: WashingMachine,
+    title: "Laundry",
+    description:
+      "Professional laundry solutions including washing, drying, ironing, and folding services.",
+    features: ["Washing & Drying", "Ironing", "Folding"],
+    image: serviceConstruction,
+    comingSoon: true,
   },
   {
     icon: Bug,
