@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BookingModal } from "@/components/BookingModal";
+import { ComingSoonModal } from "@/components/ComingSoonModal";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles,
@@ -31,6 +32,9 @@ const categoryImages: Record<string, string> = {
   "Maintenance": serviceMaintenance,
   "Interiors & Branding": serviceInterior,
 };
+
+// Services that are coming soon
+const comingSoonServices = ["Laundry Services"];
 
 const serviceCategories = [
   {
@@ -135,11 +139,17 @@ const serviceCategories = [
 
 const Services = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isComingSoonOpen, setIsComingSoonOpen] = useState(false);
   const [selectedService, setSelectedService] = useState("");
 
   const handleBookService = (serviceName: string) => {
-    setSelectedService(serviceName);
-    setIsBookingOpen(true);
+    if (comingSoonServices.includes(serviceName)) {
+      setSelectedService(serviceName);
+      setIsComingSoonOpen(true);
+    } else {
+      setSelectedService(serviceName);
+      setIsBookingOpen(true);
+    }
   };
 
   return (
@@ -260,6 +270,15 @@ const Services = () => {
           setSelectedService("");
         }}
         preselectedService={selectedService}
+      />
+
+      <ComingSoonModal
+        isOpen={isComingSoonOpen}
+        onClose={() => {
+          setIsComingSoonOpen(false);
+          setSelectedService("");
+        }}
+        serviceName={selectedService}
       />
     </div>
   );

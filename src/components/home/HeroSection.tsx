@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -27,6 +28,15 @@ const services = [
   "Other Services",
 ];
 
+const propertyTypes = [
+  "Residential",
+  "Commercial",
+  "Industrial",
+  "Office",
+  "Retail",
+  "Other",
+];
+
 export function HeroSection({ onBookingClick }: HeroSectionProps) {
   const { toast } = useToast();
   const sectionRef = useRef<HTMLElement>(null);
@@ -35,11 +45,14 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
   const decorRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    location: "",
-    address: "",
-    date: "",
+    fullName: "",
+    email: "",
+    phone: "",
+    serviceType: "",
+    propertyType: "",
+    preferredDate: "",
+    preferredTime: "",
+    notes: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -111,13 +124,33 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
     e.preventDefault();
 
     if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.location ||
-      !formData.address
+      !formData.fullName ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.serviceType ||
+      !formData.propertyType ||
+      !formData.preferredDate
     ) {
       toast({
         title: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Email validation
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      toast({
+        title: "Please enter a valid email address",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Phone validation
+    if (!/^[\d\s\-+()]{10,}$/.test(formData.phone)) {
+      toast({
+        title: "Please enter a valid phone number",
         variant: "destructive",
       });
       return;
@@ -132,20 +165,32 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          location: formData.location,
-          address: formData.address,
-          preferredDate: formData.date,
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          serviceType: formData.serviceType,
+          propertyType: formData.propertyType,
+          preferredDate: formData.preferredDate,
+          preferredTime: formData.preferredTime,
+          notes: formData.notes,
         }),
       });
 
       if (response.ok) {
         toast({
           title: "Request Received!",
-          description: "We'll contact you shortly with your free quotation.",
+          description: "We'll contact you within 24 hours.",
         });
-        setFormData({ firstName: "", lastName: "", location: "", address: "", date: "" });
+        setFormData({ 
+          fullName: "", 
+          email: "", 
+          phone: "", 
+          serviceType: "", 
+          propertyType: "", 
+          preferredDate: "", 
+          preferredTime: "", 
+          notes: "" 
+        });
       } else {
         throw new Error("Submission failed");
       }
@@ -232,74 +277,137 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
 
           {/* Right - Quick Booking Form */}
           <div ref={formRef}>
-            <div className="bg-card rounded-2xl shadow-2xl p-8">
-              <h3 className="text-2xl font-bold text-foreground mb-2">
-                Quick Booking
+            <div className="bg-card rounded-2xl shadow-2xl p-6 md:p-8">
+              <h3 className="text-2xl font-bold text-foreground mb-1">
+                Book a Service
               </h3>
-              <p className="text-muted-foreground mb-6">
-                Get a free quotation
+              <p className="text-muted-foreground mb-6 text-sm">
+                Fill out the form below and we'll get back to you within 24 hours.
               </p>
 
               <form onSubmit={handleQuickBooking} className="space-y-4">
+                {/* Full Name */}
+                <div className="space-y-2">
+                  <Label htmlFor="hero-fullname">Full Name *</Label>
+                  <Input
+                    id="hero-fullname"
+                    value={formData.fullName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, fullName: e.target.value })
+                    }
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                {/* Email & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="hero-firstname">First Name *</Label>
+                    <Label htmlFor="hero-email">Email *</Label>
                     <Input
-                      id="hero-firstname"
-                      value={formData.firstName}
+                      id="hero-email"
+                      type="email"
+                      value={formData.email}
                       onChange={(e) =>
-                        setFormData({ ...formData, firstName: e.target.value })
+                        setFormData({ ...formData, email: e.target.value })
                       }
-                      placeholder="John"
+                      placeholder="john@example.com"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="hero-lastname">Last Name *</Label>
+                    <Label htmlFor="hero-phone">Phone *</Label>
                     <Input
-                      id="hero-lastname"
-                      value={formData.lastName}
+                      id="hero-phone"
+                      value={formData.phone}
                       onChange={(e) =>
-                        setFormData({ ...formData, lastName: e.target.value })
+                        setFormData({ ...formData, phone: e.target.value })
                       }
-                      placeholder="Doe"
+                      placeholder="+1 (234) 567-890"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="hero-location">Location *</Label>
-                  <Input
-                    id="hero-location"
-                    value={formData.location}
-                    onChange={(e) =>
-                      setFormData({ ...formData, location: e.target.value })
-                    }
-                    placeholder="City, State"
-                  />
+                {/* Service Type & Property Type */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label>Service Type *</Label>
+                    <Select
+                      value={formData.serviceType}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, serviceType: value })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a service" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {services.map((service) => (
+                          <SelectItem key={service} value={service}>
+                            {service}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Property Type *</Label>
+                    <Select
+                      value={formData.propertyType}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, propertyType: value })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select property type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {propertyTypes.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="hero-address">Address *</Label>
-                  <Input
-                    id="hero-address"
-                    value={formData.address}
-                    onChange={(e) =>
-                      setFormData({ ...formData, address: e.target.value })
-                    }
-                    placeholder="Your full address"
-                  />
+                {/* Date & Time */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="hero-date">Preferred Date *</Label>
+                    <Input
+                      id="hero-date"
+                      type="date"
+                      value={formData.preferredDate}
+                      onChange={(e) =>
+                        setFormData({ ...formData, preferredDate: e.target.value })
+                      }
+                      min={new Date().toISOString().split("T")[0]}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="hero-time">Preferred Time (Optional)</Label>
+                    <Input
+                      id="hero-time"
+                      type="time"
+                      value={formData.preferredTime}
+                      onChange={(e) =>
+                        setFormData({ ...formData, preferredTime: e.target.value })
+                      }
+                    />
+                  </div>
                 </div>
 
+                {/* Additional Notes */}
                 <div className="space-y-2">
-                  <Label htmlFor="hero-date">Preferred Start Date</Label>
-                  <Input
-                    id="hero-date"
-                    type="date"
-                    value={formData.date}
+                  <Label htmlFor="hero-notes">Additional Notes (Optional)</Label>
+                  <Textarea
+                    id="hero-notes"
+                    value={formData.notes}
                     onChange={(e) =>
-                      setFormData({ ...formData, date: e.target.value })
+                      setFormData({ ...formData, notes: e.target.value })
                     }
-                    min={new Date().toISOString().split("T")[0]}
+                    placeholder="Tell us more about your requirements..."
+                    rows={2}
                   />
                 </div>
 
@@ -309,7 +417,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
                   size="lg"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Get a Free Quotation"}
+                  {isSubmitting ? "Submitting..." : "Submit Booking"}
                 </Button>
               </form>
             </div>
