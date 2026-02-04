@@ -21,18 +21,26 @@ interface BookingModalProps {
 }
 
 const services = [
+  // Cleaning
   "Post-Construction Cleaning",
   "Deep Cleaning",
   "Upholstery Cleaning",
-  "Laundry Services",
-  "Fumigation",
-  "General Maintenance",
+  // Fumigation
+  "Pest Control",
+  "Complete Fumigation",
+  // Maintenance
   "HVAC Services",
   "Electrical & Plumbing",
-  "Pest Control",
   "Gardening & Landscaping",
-  "Interior Design",
+  // Interior
   "Space Planning",
+  "Interior Design",
+  "Furniture Selection",
+  "Color Consultation",
+  // Logistics
+  "Moving In/Move Out",
+  // Supplies
+  "Fumigation & Cleaning Supplies",
 ];
 
 const propertyTypes = [

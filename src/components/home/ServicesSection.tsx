@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Sparkles, Droplets, Wrench, Paintbrush } from "lucide-react";
+import { Sparkles, Bug, Wrench, Paintbrush, Truck, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -15,35 +15,51 @@ gsap.registerPlugin(ScrollTrigger);
 const services = [
   {
     icon: Sparkles,
-    title: "Post-Construction",
+    title: "Cleaning",
     description:
-      "Complete cleaning solutions for newly built or renovated spaces. We handle debris, dust, and finishing touches.",
-    features: ["Deep Cleaning", "Debris Removal", "Final Polish"],
+      "Complete cleaning solutions including post-construction, deep cleaning, and upholstery care.",
+    features: ["Post-Construction", "Deep Cleaning", "Upholstery"],
     image: serviceConstruction,
   },
   {
-    icon: Droplets,
+    icon: Bug,
     title: "Fumigation",
     description:
       "Professional pest control and fumigation services to keep your property safe and pest-free.",
-    features: ["Complete Solutions", "Safe Products", "Long-lasting Results"],
+    features: ["Pest Control", "Complete Fumigation"],
     image: serviceFumigation,
   },
   {
     icon: Wrench,
     title: "Maintenance",
     description:
-      "General maintenance, HVAC, electrical, plumbing, and landscaping services under one roof.",
-    features: ["HVAC Services", "Electrical & Plumbing", "Gardening"],
+      "HVAC, electrical, plumbing, and landscaping services to keep your property running smoothly.",
+    features: ["HVAC Services", "Electrical & Plumbing", "Landscaping"],
     image: serviceMaintenance,
   },
   {
     icon: Paintbrush,
-    title: "Interiors & Design",
+    title: "Interior",
     description:
       "Transform your space with our interior design, space planning, and furniture selection services.",
-    features: ["Space Planning", "Color Consultation", "Furniture Selection"],
+    features: ["Space Planning", "Interior Design", "Furniture Selection"],
     image: serviceInterior,
+  },
+  {
+    icon: Truck,
+    title: "Logistics",
+    description:
+      "Reliable moving services for stress-free relocations. We handle your belongings with care.",
+    features: ["Moving In", "Move Out", "Packing Services"],
+    image: serviceMaintenance,
+  },
+  {
+    icon: Package,
+    title: "Supplies",
+    description:
+      "Professional-grade fumigation and cleaning supplies available for purchase.",
+    features: ["Fumigation Products", "Cleaning Supplies", "Equipment"],
+    image: serviceFumigation,
   },
 ];
 
@@ -173,7 +189,7 @@ export function ServicesSection({ onBookingClick }: ServicesSectionProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <div
               key={service.title}
