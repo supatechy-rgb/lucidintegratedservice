@@ -18,6 +18,8 @@ import {
   Flower,
   Layout,
   Palette,
+  Truck,
+  Package,
 } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 import serviceConstruction from "@/assets/service-construction.jpg";
@@ -27,20 +29,23 @@ import serviceInterior from "@/assets/service-interior.jpg";
 
 // Map category images
 const categoryImages: Record<string, string> = {
-  "Post-Construction": serviceConstruction,
+  "Cleaning": serviceConstruction,
+  "Laundry": serviceConstruction,
   "Fumigation": serviceFumigation,
   "Maintenance": serviceMaintenance,
-  "Interiors & Branding": serviceInterior,
+  "Interior": serviceInterior,
+  "Logistics": serviceMaintenance,
+  "Supplies": serviceFumigation,
 };
 
 // Services that are coming soon
-const comingSoonServices = ["Laundry Services"];
+const comingSoonServices = ["Laundry Service"];
 
 const serviceCategories = [
   {
-    title: "Post-Construction",
+    title: "Cleaning",
     icon: Sparkles,
-    description: "Complete cleaning solutions for newly built or renovated spaces.",
+    description: "Complete cleaning solutions for homes and businesses.",
     services: [
       {
         name: "Post-Construction Cleaning",
@@ -57,8 +62,15 @@ const serviceCategories = [
         icon: Sofa,
         description: "Professional cleaning for furniture, curtains, and fabric surfaces. We use eco-friendly products safe for all materials.",
       },
+    ],
+  },
+  {
+    title: "Laundry",
+    icon: WashingMachine,
+    description: "Professional laundry solutions for all your needs.",
+    services: [
       {
-        name: "Laundry Services",
+        name: "Laundry Service",
         icon: WashingMachine,
         description: "Comprehensive laundry solutions including washing, drying, ironing, and folding. Available for residential and commercial clients.",
       },
@@ -69,6 +81,11 @@ const serviceCategories = [
     icon: Bug,
     description: "Professional pest control for a safe and healthy environment.",
     services: [
+      {
+        name: "Pest Control",
+        icon: Bug,
+        description: "Targeted pest management for specific infestations. Effective solutions for rodents, insects, and other pests.",
+      },
       {
         name: "Complete Fumigation",
         icon: Bug,
@@ -82,11 +99,6 @@ const serviceCategories = [
     description: "Keep your property in perfect condition with our maintenance services.",
     services: [
       {
-        name: "General Maintenance",
-        icon: Wrench,
-        description: "Routine maintenance and repairs to keep your property functioning smoothly. From minor fixes to preventive care.",
-      },
-      {
         name: "HVAC Services",
         icon: Wind,
         description: "Heating, ventilation, and air conditioning maintenance, repair, and installation services.",
@@ -97,11 +109,6 @@ const serviceCategories = [
         description: "Licensed technicians for all your electrical and plumbing needs. Safety and quality guaranteed.",
       },
       {
-        name: "Pest Control",
-        icon: Bug,
-        description: "Ongoing pest management programs to keep your space pest-free year-round.",
-      },
-      {
         name: "Gardening & Landscaping",
         icon: Flower,
         description: "Professional landscaping, lawn care, and garden maintenance to enhance your outdoor spaces.",
@@ -109,7 +116,7 @@ const serviceCategories = [
     ],
   },
   {
-    title: "Interiors & Branding",
+    title: "Interior",
     icon: Paintbrush,
     description: "Transform your space with our design expertise.",
     services: [
@@ -132,6 +139,30 @@ const serviceCategories = [
         name: "Color Consultation",
         icon: Palette,
         description: "Professional color schemes that set the right mood and complement your space.",
+      },
+    ],
+  },
+  {
+    title: "Logistics",
+    icon: Truck,
+    description: "Reliable moving services for stress-free relocations.",
+    services: [
+      {
+        name: "Moving In/Move Out",
+        icon: Truck,
+        description: "Complete moving services including packing, transportation, and unpacking. We handle your belongings with care.",
+      },
+    ],
+  },
+  {
+    title: "Supplies",
+    icon: Package,
+    description: "Quality fumigation and cleaning products for purchase.",
+    services: [
+      {
+        name: "Fumigation & Cleaning Supplies",
+        icon: Package,
+        description: "Professional-grade fumigation and cleaning supplies available for purchase. Get the same quality products we use.",
       },
     ],
   },
