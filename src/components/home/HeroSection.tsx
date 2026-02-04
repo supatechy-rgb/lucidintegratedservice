@@ -1,9 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import { format } from "date-fns";
 import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -12,7 +19,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowRight, Shield, Clock, Leaf } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ArrowRight, Shield, Clock, Leaf, CalendarIcon, Send } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 
 interface HeroSectionProps {
@@ -20,21 +28,13 @@ interface HeroSectionProps {
 }
 
 const services = [
-  "Post-Construction Cleaning",
-  "Deep Cleaning",
+  "Cleaning",
+  "Laundry",
   "Fumigation",
-  "General Maintenance",
-  "Interior Design",
-  "Other Services",
-];
-
-const propertyTypes = [
-  "Residential",
-  "Commercial",
-  "Industrial",
-  "Office",
-  "Retail",
-  "Other",
+  "Maintenance",
+  "Interior",
+  "Logistics",
+  "Supplies",
 ];
 
 export function HeroSection({ onBookingClick }: HeroSectionProps) {
@@ -49,9 +49,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
     email: "",
     phone: "",
     serviceType: "",
-    propertyType: "",
-    preferredDate: "",
-    preferredTime: "",
+    preferredDate: undefined as Date | undefined,
     notes: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -67,7 +65,6 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
 
-      // Hero content animation
       tl.from(heroContent.querySelectorAll(".hero-animate"), {
         y: 80,
         opacity: 0,
@@ -76,7 +73,6 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
         ease: "power3.out",
       });
 
-      // Form slide in
       tl.from(
         form,
         {
@@ -88,7 +84,6 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
         "-=0.8"
       );
 
-      // Decorative elements
       if (decor) {
         gsap.to(decor.querySelectorAll(".decor-circle"), {
           y: "random(-20, 20)",
@@ -104,7 +99,6 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
         });
       }
 
-      // Parallax background
       gsap.to(".hero-bg", {
         y: "30%",
         ease: "none",
@@ -128,7 +122,6 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
       !formData.email ||
       !formData.phone ||
       !formData.serviceType ||
-      !formData.propertyType ||
       !formData.preferredDate
     ) {
       toast({
@@ -138,7 +131,6 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
       return;
     }
 
-    // Email validation
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       toast({
         title: "Please enter a valid email address",
@@ -147,7 +139,6 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
       return;
     }
 
-    // Phone validation
     if (!/^[\d\s\-+()]{10,}$/.test(formData.phone)) {
       toast({
         title: "Please enter a valid phone number",
@@ -169,9 +160,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
           email: formData.email,
           phone: formData.phone,
           serviceType: formData.serviceType,
-          propertyType: formData.propertyType,
-          preferredDate: formData.preferredDate,
-          preferredTime: formData.preferredTime,
+          preferredDate: formData.preferredDate ? format(formData.preferredDate, "PPP") : "",
           notes: formData.notes,
         }),
       });
@@ -186,9 +175,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
           email: "", 
           phone: "", 
           serviceType: "", 
-          propertyType: "", 
-          preferredDate: "", 
-          preferredTime: "", 
+          preferredDate: undefined, 
           notes: "" 
         });
       } else {
@@ -217,9 +204,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
           alt="Professional cleaning team at work"
           className="hero-bg w-full h-[120%] object-cover"
         />
-        {/* Dark overlay with gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70" />
-        {/* White fade at top for logo visibility */}
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/70 to-transparent" />
       </div>
 
@@ -277,18 +262,24 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
 
           {/* Right - Quick Booking Form */}
           <div ref={formRef}>
-            <div className="bg-card rounded-2xl shadow-2xl p-6 md:p-8">
-              <h3 className="text-2xl font-bold text-foreground mb-1">
-                Book a Service
-              </h3>
-              <p className="text-muted-foreground mb-6 text-sm">
-                Fill out the form below and we'll get back to you within 24 hours.
-              </p>
+            <div className="bg-card rounded-3xl shadow-2xl overflow-hidden">
+              {/* Form Header */}
+              <div className="bg-primary px-6 py-5">
+                <h3 className="text-xl font-bold text-primary-foreground">
+                  Quick Booking
+                </h3>
+                <p className="text-primary-foreground/70 text-sm">
+                  Get a free quote within 24 hours
+                </p>
+              </div>
 
-              <form onSubmit={handleQuickBooking} className="space-y-4">
+              {/* Form Body */}
+              <form onSubmit={handleQuickBooking} className="p-6 space-y-4">
                 {/* Full Name */}
-                <div className="space-y-2">
-                  <Label htmlFor="hero-fullname">Full Name *</Label>
+                <div className="space-y-1.5">
+                  <Label htmlFor="hero-fullname" className="text-sm font-medium">
+                    Full Name <span className="text-destructive">*</span>
+                  </Label>
                   <Input
                     id="hero-fullname"
                     value={formData.fullName}
@@ -296,110 +287,109 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
                       setFormData({ ...formData, fullName: e.target.value })
                     }
                     placeholder="John Doe"
+                    className="h-11"
                   />
                 </div>
 
-                {/* Email & Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="hero-email">Email *</Label>
-                    <Input
-                      id="hero-email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="hero-phone">Phone *</Label>
-                    <Input
-                      id="hero-phone"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })
-                      }
-                      placeholder="+1 (234) 567-890"
-                    />
-                  </div>
+                {/* Email */}
+                <div className="space-y-1.5">
+                  <Label htmlFor="hero-email" className="text-sm font-medium">
+                    Email <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="hero-email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    placeholder="john@example.com"
+                    className="h-11"
+                  />
                 </div>
 
-                {/* Service Type & Property Type */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Service Type *</Label>
-                    <Select
-                      value={formData.serviceType}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, serviceType: value })
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a service" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {services.map((service) => (
-                          <SelectItem key={service} value={service}>
-                            {service}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Property Type *</Label>
-                    <Select
-                      value={formData.propertyType}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, propertyType: value })
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select property type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {propertyTypes.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                {/* Phone */}
+                <div className="space-y-1.5">
+                  <Label htmlFor="hero-phone" className="text-sm font-medium">
+                    Phone <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="hero-phone"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
+                    placeholder="+234 916 019 8122"
+                    className="h-11"
+                  />
                 </div>
 
-                {/* Date & Time */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="hero-date">Preferred Date *</Label>
-                    <Input
-                      id="hero-date"
-                      type="date"
-                      value={formData.preferredDate}
-                      onChange={(e) =>
-                        setFormData({ ...formData, preferredDate: e.target.value })
-                      }
-                      min={new Date().toISOString().split("T")[0]}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="hero-time">Preferred Time (Optional)</Label>
-                    <Input
-                      id="hero-time"
-                      type="time"
-                      value={formData.preferredTime}
-                      onChange={(e) =>
-                        setFormData({ ...formData, preferredTime: e.target.value })
-                      }
-                    />
-                  </div>
+                {/* Service Type */}
+                <div className="space-y-1.5">
+                  <Label className="text-sm font-medium">
+                    Service Type <span className="text-destructive">*</span>
+                  </Label>
+                  <Select
+                    value={formData.serviceType}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, serviceType: value })
+                    }
+                  >
+                    <SelectTrigger className="h-11">
+                      <SelectValue placeholder="Select a service" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {services.map((service) => (
+                        <SelectItem key={service} value={service}>
+                          {service}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Preferred Date */}
+                <div className="space-y-1.5">
+                  <Label className="text-sm font-medium">
+                    Preferred Date <span className="text-destructive">*</span>
+                  </Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full h-11 justify-start text-left font-normal",
+                          !formData.preferredDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {formData.preferredDate ? (
+                          format(formData.preferredDate, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={formData.preferredDate}
+                        onSelect={(date) =>
+                          setFormData({ ...formData, preferredDate: date })
+                        }
+                        disabled={(date) => date < new Date()}
+                        initialFocus
+                        className={cn("p-3 pointer-events-auto")}
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 {/* Additional Notes */}
-                <div className="space-y-2">
-                  <Label htmlFor="hero-notes">Additional Notes (Optional)</Label>
+                <div className="space-y-1.5">
+                  <Label htmlFor="hero-notes" className="text-sm font-medium">
+                    Additional Notes <span className="text-muted-foreground text-xs">(Optional)</span>
+                  </Label>
                   <Textarea
                     id="hero-notes"
                     value={formData.notes}
@@ -408,16 +398,24 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
                     }
                     placeholder="Tell us more about your requirements..."
                     rows={2}
+                    className="resize-none"
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full"
+                  className="w-full h-12 text-base font-semibold mt-2"
                   size="lg"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Submit Booking"}
+                  {isSubmitting ? (
+                    "Submitting..."
+                  ) : (
+                    <>
+                      Get Free Quote
+                      <Send className="w-4 h-4 ml-2" />
+                    </>
+                  )}
                 </Button>
               </form>
             </div>
