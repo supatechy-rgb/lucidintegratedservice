@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, User, Mail, Phone, Home, Clock, FileText } from "lucide-react";
+import { X, Calendar, User, Mail, Phone, Home, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +19,16 @@ interface BookingModalProps {
   onClose: () => void;
   preselectedService?: string;
 }
+
+// Map category names to their first sub-service
+const categoryToService: Record<string, string> = {
+  "Cleaning": "Post-Construction Cleaning",
+  "Fumigation": "Pest Control",
+  "Maintenance": "HVAC Services",
+  "Interior": "Space Planning",
+  "Logistics": "Moving In/Move Out",
+  "Supplies": "Fumigation & Cleaning Supplies",
+};
 
 const services = [
   // Cleaning
@@ -62,9 +72,17 @@ export function BookingModal({ isOpen, onClose, preselectedService }: BookingMod
     serviceType: preselectedService || "",
     propertyType: "",
     preferredDate: "",
-    preferredTime: "",
     notes: "",
   });
+
+  // Update serviceType when preselectedService changes
+  React.useEffect(() => {
+    if (preselectedService) {
+      // Map category name to specific service if needed
+      const mappedService = categoryToService[preselectedService] || preselectedService;
+      setFormData(prev => ({ ...prev, serviceType: mappedService }));
+    }
+  }, [preselectedService]);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -115,7 +133,6 @@ export function BookingModal({ isOpen, onClose, preselectedService }: BookingMod
           serviceType: "",
           propertyType: "",
           preferredDate: "",
-          preferredTime: "",
           notes: "",
         });
         onClose();
@@ -306,19 +323,6 @@ export function BookingModal({ isOpen, onClose, preselectedService }: BookingMod
                   )}
                 </div>
 
-                {/* Preferred Time */}
-                <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor="preferredTime" className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    Preferred Time (Optional)
-                  </Label>
-                  <Input
-                    id="preferredTime"
-                    type="time"
-                    value={formData.preferredTime}
-                    onChange={(e) => handleChange("preferredTime", e.target.value)}
-                  />
-                </div>
 
                 {/* Notes */}
                 <div className="space-y-2 md:col-span-2">

@@ -76,7 +76,7 @@ const services = [
 ];
 
 interface ServicesSectionProps {
-  onBookingClick: () => void;
+  onBookingClick: (serviceName?: string) => void;
 }
 
 export function ServicesSection({ onBookingClick }: ServicesSectionProps) {
@@ -221,7 +221,7 @@ export function ServicesSection({ onBookingClick }: ServicesSectionProps) {
                   variant="outline"
                   size="sm"
                   className="w-full group/btn"
-                  onClick={onBookingClick}
+                  onClick={() => onBookingClick(service.title)}
                   disabled={service.comingSoon}
                 >
                   {service.comingSoon ? "Coming Soon" : (
