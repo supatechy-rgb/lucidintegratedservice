@@ -22,20 +22,23 @@ import {
   Package,
 } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
-import serviceConstruction from "@/assets/service-construction.jpg";
-import serviceFumigation from "@/assets/service-fumigation.jpg";
-import serviceMaintenance from "@/assets/service-maintenance.jpg";
-import serviceInterior from "@/assets/service-interior.jpg";
+import serviceCleaning from "@/assets/service-cleaning.jpg";
+import serviceLaundry from "@/assets/service-laundry.jpg";
+import serviceFumigation from "@/assets/service-fumigation-new.jpg";
+import serviceMaintenance from "@/assets/service-maintenance-new.jpg";
+import serviceInterior from "@/assets/service-interior-new.jpg";
+import serviceLogistics from "@/assets/service-logistics.jpg";
+import serviceSupplies from "@/assets/service-supplies.jpg";
 
 // Map category images
 const categoryImages: Record<string, string> = {
-  "Cleaning": serviceConstruction,
-  "Laundry": serviceConstruction,
+  "Cleaning": serviceCleaning,
+  "Laundry": serviceLaundry,
   "Fumigation": serviceFumigation,
   "Maintenance": serviceMaintenance,
   "Interior": serviceInterior,
-  "Logistics": serviceMaintenance,
-  "Supplies": serviceFumigation,
+  "Logistics": serviceLogistics,
+  "Supplies": serviceSupplies,
 };
 
 // Services that are coming soon
