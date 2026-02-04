@@ -66,6 +66,9 @@ export function TestimonialsSection() {
 
       if (!error && data && data.length > 0) {
         setTestimonials(data as Testimonial[]);
+        // If the fetched list is shorter than the fallback list, ensure we
+        // don't briefly render an out-of-bounds index.
+        setCurrent(0);
       }
     };
 
@@ -157,6 +160,12 @@ export function TestimonialsSection() {
     );
   };
 
+  // Prevent out-of-bounds access if the list length changes (e.g. fallback -> fetched)
+  const safeIndex = testimonials.length
+    ? Math.min(Math.max(current, 0), testimonials.length - 1)
+    : 0;
+  const active = testimonials[safeIndex];
+
   return (
     <section ref={sectionRef} className="py-24 bg-primary overflow-hidden">
       <div className="container">
@@ -181,19 +190,19 @@ export function TestimonialsSection() {
             >
               <Quote className="w-12 h-12 text-secondary mb-6" />
               <p className="text-xl md:text-2xl text-primary-foreground leading-relaxed mb-8">
-                "{testimonials[current].content}"
+                "{active?.content ?? ""}"
               </p>
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-primary-foreground text-lg">
-                    {testimonials[current].name}
+                    {active?.name ?? ""}
                   </h4>
                   <p className="text-primary-foreground/70">
-                    {testimonials[current].role}
+                    {active?.role ?? ""}
                   </p>
                 </div>
                 <div className="flex gap-1">
-                  {[...Array(testimonials[current].rating)].map((_, i) => (
+                  {Array.from({ length: active?.rating ?? 5 }).map((_, i) => (
                     <Star
                       key={i}
                       className="w-5 h-5 fill-secondary text-secondary"
