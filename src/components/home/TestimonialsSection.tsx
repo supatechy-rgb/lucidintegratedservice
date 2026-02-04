@@ -120,12 +120,19 @@ export function TestimonialsSection() {
   }, []);
 
   useEffect(() => {
-    if (!autoPlay) return;
+    if (!autoPlay || testimonials.length === 0) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % testimonials.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [autoPlay]);
+  }, [autoPlay, testimonials.length]);
+
+  // Reset current index when testimonials change to prevent out-of-bounds access
+  useEffect(() => {
+    if (current >= testimonials.length && testimonials.length > 0) {
+      setCurrent(0);
+    }
+  }, [testimonials.length, current]);
 
   useEffect(() => {
     const card = cardRef.current;
