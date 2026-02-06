@@ -250,10 +250,6 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
             </div>
 
             <div className="hero-animate flex flex-wrap gap-4">
-              <Button variant="hero" size="lg" onClick={onBookingClick}>
-                Book a Service Now
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
               <Button variant="heroOutline" size="lg" asChild>
                 <a href="#services">Explore Services</a>
               </Button>
