@@ -22,23 +22,40 @@ import {
   Package,
 } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
-import serviceCleaning from "@/assets/service-cleaning.jpg";
+// Individual service images
+import servicePostConstruction from "@/assets/service-post-construction.jpg";
+import serviceDeepCleaning from "@/assets/service-deep-cleaning.jpg";
+import serviceUpholstery from "@/assets/service-upholstery.jpg";
 import serviceLaundry from "@/assets/service-laundry.jpg";
+import servicePestControl from "@/assets/service-pest-control.jpg";
 import serviceFumigation from "@/assets/service-fumigation-new.jpg";
-import serviceMaintenance from "@/assets/service-maintenance-new.jpg";
+import serviceHvac from "@/assets/service-hvac.jpg";
+import serviceElectricalPlumbing from "@/assets/service-electrical-plumbing.jpg";
+import serviceGardening from "@/assets/service-gardening.jpg";
+import serviceSpacePlanning from "@/assets/service-space-planning.jpg";
 import serviceInterior from "@/assets/service-interior-new.jpg";
+import serviceFurniture from "@/assets/service-furniture.jpg";
+import serviceColorConsultation from "@/assets/service-color-consultation.jpg";
 import serviceLogistics from "@/assets/service-logistics.jpg";
 import serviceSupplies from "@/assets/service-supplies.jpg";
 
-// Map category images
-const categoryImages: Record<string, string> = {
-  "Cleaning": serviceCleaning,
-  "Laundry": serviceLaundry,
-  "Fumigation": serviceFumigation,
-  "Maintenance": serviceMaintenance,
-  "Interior": serviceInterior,
-  "Logistics": serviceLogistics,
-  "Supplies": serviceSupplies,
+// Map individual service images by service name
+const serviceImages: Record<string, string> = {
+  "Post-Construction Cleaning": servicePostConstruction,
+  "Deep Cleaning": serviceDeepCleaning,
+  "Upholstery Cleaning": serviceUpholstery,
+  "Laundry Service": serviceLaundry,
+  "Pest Control": servicePestControl,
+  "Complete Fumigation": serviceFumigation,
+  "HVAC Services": serviceHvac,
+  "Electrical & Plumbing": serviceElectricalPlumbing,
+  "Gardening & Landscaping": serviceGardening,
+  "Space Planning": serviceSpacePlanning,
+  "Interior Design": serviceInterior,
+  "Furniture Selection": serviceFurniture,
+  "Color Consultation": serviceColorConsultation,
+  "Moving In/Move Out": serviceLogistics,
+  "Fumigation & Cleaning Supplies": serviceSupplies,
 };
 
 // Services that are coming soon
@@ -260,7 +277,7 @@ const Services = () => {
                     {/* Image Section */}
                     <div className="relative h-40 overflow-hidden">
                       <img
-                        src={categoryImages[category.title]}
+                        src={serviceImages[service.name]}
                         alt={service.name}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
